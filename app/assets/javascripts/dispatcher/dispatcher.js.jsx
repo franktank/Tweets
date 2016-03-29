@@ -1,0 +1,1 @@
+var Dispatcher = new FluxDispatcher();
