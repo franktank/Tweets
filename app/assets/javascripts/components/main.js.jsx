@@ -3,12 +3,30 @@ var Main = React.createClass({
     return{ tweetsList: [] };
   },
 
+  formattedTweets: function(tweetsList) {
+    let formattedList = tweetsList.map(tweet => {
+      tweet.formattedDate = moment(tweet.created_at).fromNow();
+      return tweet;
+    });
+    return{
+      tweetsList: formattedList
+    };
+  },
 
   addTweet: function(tweetToAdd) {
-    let newTweetsList = this.state.tweetsList;
-    newTweetsList.unshift({ id: Date.now(), name: 'Guest', body: tweetToAdd });
+    $.post("/tweets", { description: tweetToAdd })
+    .success( savedTweet => {
+      let newTweetsList = this.state.tweetsList;
+      newTweetsList.unshift(savedTweet);
+      this.setState(this.formattedTweets(newTweetsList));
+    })
+    .error(error => console.log(error));
+  },
 
-    this.setState({ tweetsList: newTweetsList });
+  componentDidMount: function() {
+      $.ajax("/tweets")
+      .success(data => this.setState(this.formattedTweets(data)))
+      .error(error => console.log(error));
   },
 
   render: function() {
@@ -24,6 +42,6 @@ var Main = React.createClass({
 $(function(){
   React.render(
     <Main />,
-    document.getElementByID('main')
+    reactNode
   );
 });
