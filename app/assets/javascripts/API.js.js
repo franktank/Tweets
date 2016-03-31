@@ -1,6 +1,7 @@
-    ServerActions = require('../actions/ServerActions.js.jsx');
+    ServerActions = require('./actions/ServerActions.js.jsx');
 APIActions = {
   getAllTweets: function() {
+    console.log(2, "API.getAllTweets");
     $.get("/tweets")
     .success( rawTweets => ServerActions.receivedTweets(rawTweets) )
     .error(error => console.log(error));

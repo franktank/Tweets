@@ -1,6 +1,7 @@
+var TweetBox = React.createClass({displayName: "TweetBox",
   sendTweet: function(event){
     event.preventDefault();
-    this.props.sendTweet(this.refs.tweetTextArea.value);
+    TweetActions.sendTweet(this.refs.tweetTextArea.value);
     this.refs.tweetTextArea.value='';
   },
 

@@ -1,13 +1,20 @@
-receivedTweets: function(rawTweets) {
+var AppDispatcher = require('../dispatcher/dispatcher.js'),
+    ActionTypes = require('../constants/constants.js.jsx');
 
-}
-(function (root){
-  var ServerActions = root.ServerActions = {
+ var ServerActions = root.ServerActions = {
     receivedTweets: function(rawTweets) {
-      Dispatcher.dispatch({
-        actionType: 'RECEIVED_TWEETS'
+      console.log(3, "ServerActions.receivedTweets")
+      AppDispatcher.dispatch({
+        actionType: ActionTypes.RECEIVED_TWEETS,
         rawTweets: rawTweets
-      })
+      });
+    },
+    receivedOneTweet: function(rawTweet) {
+      AppDispatcher.dispatch({
+        actionType: ActionTypes.RECEIVED_ONE_TWEET,
+        rawTweet: rawTweet
+      });
     }
  };
-})(this);
+
+module.exports = ServerActions;
